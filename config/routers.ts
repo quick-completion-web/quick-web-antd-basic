@@ -26,11 +26,5 @@ export default [
         component: './system/group'
       }
     ]
-  },
-  {
-    path: '/mock',
-    name: '数据模拟',
-    icon: 'ThunderboltOutlined',
-    component: './mock'
   }
 ]

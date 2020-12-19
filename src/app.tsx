@@ -6,14 +6,13 @@ import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import {RequestOptionsInit, ResponseError} from 'umi-request';
 import {ApiResponse} from "@/utils/response";
-
 import Cons from "@/Cons";
-
-import {CurrentUser, queryCurrent} from './services/user';
-import defaultSettings, {ManifestLayoutSettings} from '../config/defaultSettings';
 import IconFont from "@/components/Icon";
 import PermissionTreeConverter from "@/pages/system/components/PermissionTree/Converter";
 import {Permission} from "@/data";
+
+import {CurrentUser, queryCurrent} from './services/user';
+import defaultSettings, {ManifestLayoutSettings} from '../config/defaultSettings';
 
 export async function getInitialState(): Promise<{
   settings?: ManifestLayoutSettings;
@@ -64,6 +63,12 @@ export const layout = ({
       if (!currentUser && location.pathname !== '/user/login') {
         history.push('/user/login');
       }
+
+      if (location.pathname !== '/404'
+        && currentUser?.permissions.filter(p => p.menu).filter(p => p.path === location.pathname).length === 0){
+        history.push('/404');
+      }
+
     },
     menuHeaderRender: undefined,
     ...initialState?.settings,
